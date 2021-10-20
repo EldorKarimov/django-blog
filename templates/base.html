@@ -1,0 +1,33 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>blog site with django</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+<body>
+
+  <header>
+    <h1>
+      <a href="{% url 'home' %}">Hacktivist Blog</a>
+    </h1>
+  </header> <hr>
+  <div>
+        <a href="{% url 'post_new' %}">yangi post</a>
+  </div>
+
+  {% if user.is_authenticated %}
+    <p>Assalomu aleykum {{user.username}}! saytga xush kelibsiz.</p>
+    <p><a href="{% url 'logout' %}">chiqib ketish</a></p>
+  {% else %}
+  <form>{% csrf_token %}
+      <button><a href="{% url 'login' %}">Saytga kirish</a></button>
+      <button type="submit"><a href="{% url 'signup' %}">Ro'yhatdan o'tish</a></button>
+  </form>
+  {% endif %}
+<div>
+  {% block content %}
+  {% endblock content %}
+</div>
+</body>
+</html>
